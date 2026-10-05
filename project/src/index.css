@@ -1,0 +1,109 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root { color-scheme: light; }
+  html.dark { color-scheme: dark; }
+  html { scroll-behavior: smooth; }
+  body {
+    @apply font-sans antialiased;
+    background-color: #f5f6fc;
+    color: #0f172a;
+  }
+  html.dark body {
+    background-color: #070713;
+    color: #e6e8f5;
+  }
+  ::selection { background: rgba(99, 102, 241, 0.3); }
+}
+
+@layer components {
+  .glass {
+    @apply backdrop-blur-xl bg-white/60 dark:bg-white/[0.04] border border-white/40 dark:border-white/10;
+  }
+  .glass-strong {
+    @apply backdrop-blur-2xl bg-white/80 dark:bg-white/[0.07] border border-white/50 dark:border-white/10;
+  }
+  .glass-card {
+    @apply glass rounded-2xl shadow-lg shadow-slate-900/5;
+  }
+  .glass-glow {
+    @apply glass-card relative;
+    box-shadow: 0 0 0 1px rgba(255,255,255,0.06), 0 8px 32px -8px rgba(99,102,241,0.18);
+  }
+  .glass-glow::before {
+    content: '';
+    @apply absolute inset-0 rounded-2xl pointer-events-none opacity-0 transition-opacity duration-500;
+    background: linear-gradient(135deg, rgba(99,102,241,0.12), transparent 40%, rgba(34,211,238,0.08));
+  }
+  .glass-glow:hover::before { @apply opacity-100; }
+  .gradient-text {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(110deg, #3b82f6, #6366f1, #8b5cf6, #22d3ee, #3b82f6);
+    background-size: 200% auto;
+    animation: gradientShift 6s ease infinite;
+  }
+  .btn-primary {
+    @apply relative overflow-hidden inline-flex items-center justify-center gap-2 rounded-xl px-5 py-2.5 font-medium text-white
+      bg-gradient-to-r from-cyber-600 via-quantum-600 to-purple-600 hover:from-cyber-500 hover:via-quantum-500 hover:to-purple-500
+      shadow-glow transition-all duration-200 active:scale-[0.98] disabled:opacity-50 disabled:pointer-events-none;
+  }
+  .btn-ghost {
+    @apply relative overflow-hidden inline-flex items-center justify-center gap-2 rounded-xl px-5 py-2.5 font-medium
+      text-slate-700 dark:text-slate-200 glass hover:bg-white/80 dark:hover:bg-white/10
+      transition-all duration-200 active:scale-[0.98];
+  }
+  .btn-danger {
+    @apply relative overflow-hidden inline-flex items-center justify-center gap-2 rounded-xl px-5 py-2.5 font-medium text-white
+      bg-gradient-to-r from-rose-600 to-red-600 hover:from-rose-500 hover:to-red-500
+      shadow-glow-rose transition-all duration-200 active:scale-[0.98];
+  }
+  .btn-success {
+    @apply relative overflow-hidden inline-flex items-center justify-center gap-2 rounded-xl px-5 py-2.5 font-medium text-white
+      bg-gradient-to-r from-emerald-600 to-cyber-600 hover:from-emerald-500 hover:to-cyber-500
+      shadow-glow-emerald transition-all duration-200 active:scale-[0.98];
+  }
+  .input {
+    @apply w-full rounded-xl px-4 py-2.5 text-sm bg-white/70 dark:bg-white/[0.04]
+      border border-slate-200 dark:border-white/10 outline-none transition
+      focus:border-quantum-400 focus:ring-2 focus:ring-quantum-500/30
+      placeholder:text-slate-400 dark:placeholder:text-slate-500;
+  }
+  .label {
+    @apply block text-xs font-medium text-slate-500 dark:text-slate-400 mb-1.5;
+  }
+  .badge {
+    @apply inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-medium;
+  }
+  .sidebar-link {
+    @apply flex items-center gap-3 rounded-xl px-3.5 py-2.5 text-sm font-medium
+      text-slate-600 dark:text-slate-300 hover:bg-white/60 dark:hover:bg-white/5
+      transition-all duration-200;
+  }
+  .sidebar-link-active {
+    @apply bg-gradient-to-r from-cyber-500/15 to-quantum-500/15 text-quantum-700 dark:text-white
+      border border-quantum-400/30 shadow-glow;
+  }
+  .skeleton {
+    @apply rounded-xl;
+    background: linear-gradient(90deg, rgba(148,163,184,0.08) 25%, rgba(148,163,184,0.18) 37%, rgba(148,163,184,0.08) 63%);
+    background-size: 400% 100%;
+    animation: shimmer 1.4s ease infinite;
+  }
+  .ripple {
+    @apply absolute rounded-full pointer-events-none;
+    background: rgba(255,255,255,0.45);
+    transform: scale(0);
+    animation: ripple 0.6s ease-out;
+  }
+}
+
+@layer utilities {
+  .scrollbar-thin::-webkit-scrollbar { width: 8px; height: 8px; }
+  .scrollbar-thin::-webkit-scrollbar-thumb { background: rgba(99,102,241,0.3); border-radius: 9999px; }
+  .scrollbar-thin::-webkit-scrollbar-track { background: transparent; }
+  .text-balance { text-wrap: balance; }
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+}
